@@ -129,6 +129,35 @@
     gap: 12px;
     padding: 14px 16px;
     min-height: 64px;
+    text-align: left;
+  }
+  /* 자가진단 Q3 라벨 알약 */
+  .quiz-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.2;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 64px;
+    text-align: center;
+  }
+  .quiz-row-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  @media (max-width: 480px) {
+    .quiz-pill { font-size: 12px; padding: 5px 12px; min-width: 56px; }
+    .quiz-row-text { font-size: 13px; }
   }
   .quiz-question {
     animation: quiz-fade-in .35s ease-out;
@@ -179,7 +208,11 @@
   img, svg, video { max-width: 100%; height: auto; }
 
   /* 모바일에서 텍스트 자동 줄바꿈 강제 */
-  h1, h2, h3, p, span { word-break: keep-all; }
+  h1, h2, h3, h4, p, span, li, a, button {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  /* 단, 좁은 라벨/뱃지/숫자 등은 nowrap 처리는 별도 지정 */
 
   /* 모바일 기준 화면 (≤640px) */
   @media (max-width: 640px) {
@@ -489,6 +522,28 @@
   }
 
   /* Sticky mobile CTA — 새 #mobileFixedCta로 대체됨 */
+
+  /* ===== 플로팅 TOP 버튼 ===== */
+  #topBtn {
+    /* PC 기본 위치: 우측 하단 */
+    right: 24px;
+    bottom: 28px;
+  }
+  /* 모바일에서는 고정 CTA 바 위쪽에 배치 */
+  @media (max-width: 767px) {
+    #topBtn {
+      right: 16px;
+      bottom: 84px; /* 고정 CTA 바 높이만큼 위로 */
+    }
+  }
+  #topBtn.is-show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  #topBtn:hover svg { color: white; }
+  #topBtn:hover { transform: translateY(-2px); }
+  #topBtn.is-show:active { transform: scale(0.95); }
 
   /* Pretty checks */
   .check {
@@ -1401,19 +1456,19 @@
             <p class="font-pretendard-bold text-lg md:text-xl text-[var(--ink)] mb-5">
               <span class="text-[var(--primary)]">Q3.</span> 해당하는 유형이 있나요?
             </p>
-            <p class="text-sm text-[var(--ink-2)] mb-5">청년(만 19~39세, 중위소득 130% 이하) 또는 저소득층(중위소득 100% 이하)</p>
+            <p class="text-sm text-[var(--ink-2)] mb-5 leading-relaxed" style="word-break: keep-all;">청년(만 19~39세, 중위소득 130% 이하)<br class="md:hidden"/> 또는 저소득층(중위소득 100% 이하)</p>
             <div class="grid grid-cols-1 gap-3">
               <button class="quiz-btn quiz-btn-row" data-answer="youth" data-q="3">
-                <span class="w-9 h-9 rounded-full bg-[var(--primary)] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">청년</span>
-                <span class="text-left">만 19~39세 · 중위소득 130% 이하</span>
+                <span class="quiz-pill" style="background: var(--primary);">청년</span>
+                <span class="quiz-row-text">만 19~39세 · 중위소득 130% 이하</span>
               </button>
               <button class="quiz-btn quiz-btn-row" data-answer="lowincome" data-q="3">
-                <span class="w-9 h-9 rounded-full bg-[var(--secondary)] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">저소득</span>
-                <span class="text-left">중위소득 100% 이하</span>
+                <span class="quiz-pill" style="background: var(--secondary);">저소득층</span>
+                <span class="quiz-row-text">중위소득 100% 이하</span>
               </button>
               <button class="quiz-btn quiz-btn-row" data-answer="none" data-q="3">
-                <span class="w-9 h-9 rounded-full bg-[var(--ink-3)] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">해당없음</span>
-                <span class="text-left">둘 다 해당하지 않음</span>
+                <span class="quiz-pill" style="background: var(--ink-3);">해당 없음</span>
+                <span class="quiz-row-text">둘 다 해당하지 않음</span>
               </button>
             </div>
           </div>
@@ -2071,6 +2126,14 @@
   </div>
 </div>
 
+<!-- ========================= 플로팅 TOP 버튼 (PC + 모바일) ========================= -->
+<button id="topBtn" type="button" aria-label="맨 위로 이동"
+        class="fixed z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white shadow-[0_8px_24px_rgba(15,18,60,0.18)] border border-[var(--line)] flex items-center justify-center opacity-0 pointer-events-none translate-y-3 transition-all duration-300 hover:bg-[var(--primary)] hover:border-[var(--primary)] active:scale-95">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-[var(--primary)] transition-colors" style="transition: stroke .15s;">
+    <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
 <!-- 복사 토스트 -->
 <div id="copyToast" class="toast">
   <span>✓</span>
@@ -2259,23 +2322,37 @@
   const heroSection = document.querySelector('.hero-bg');
   const finalCta = document.querySelector('section.relative.overflow-hidden:last-of-type');
 
-  function updateFixedCta() {
-    if (!fixedCta || window.innerWidth >= 768) {
-      if (fixedCta) fixedCta.classList.add('translate-y-full');
-      return;
-    }
+  // 플로팅 TOP 버튼
+  const topBtn = document.getElementById('topBtn');
+  if (topBtn) {
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  function updateFloatingButtons() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const winH = window.innerHeight;
+    const isMobile = window.innerWidth < 768;
     const heroBottom = heroSection ? heroSection.getBoundingClientRect().bottom : 0;
     const finalCtaTop = finalCta ? finalCta.getBoundingClientRect().top : Infinity;
-    const showCta = heroBottom < 100 && finalCtaTop > window.innerHeight - 80;
-    if (showCta) {
-      fixedCta.classList.remove('translate-y-full');
-    } else {
-      fixedCta.classList.add('translate-y-full');
+
+    // 모바일 고정 CTA 바
+    if (fixedCta) {
+      const showCta = isMobile && heroBottom < 100 && finalCtaTop > winH - 80;
+      if (showCta) fixedCta.classList.remove('translate-y-full');
+      else fixedCta.classList.add('translate-y-full');
+    }
+
+    // TOP 버튼: 400px 이상 스크롤했을 때 표시
+    if (topBtn) {
+      if (scrollY > 400) topBtn.classList.add('is-show');
+      else topBtn.classList.remove('is-show');
     }
   }
-  window.addEventListener('scroll', updateFixedCta, { passive: true });
-  window.addEventListener('resize', updateFixedCta);
-  updateFixedCta();
+  window.addEventListener('scroll', updateFloatingButtons, { passive: true });
+  window.addEventListener('resize', updateFloatingButtons);
+  updateFloatingButtons();
 
   // 모바일 햄버거 메뉴 토글 + 섹션 이동
   const mobileMenu = document.getElementById('mobileMenu');
