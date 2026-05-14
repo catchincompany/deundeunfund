@@ -358,15 +358,6 @@
     padding: 0 2px;
     border-radius: 2px;
   }
-  /* 04번 노란 카드는 dashed 색상이 너무 안 보여서 조정 */
-  .doc-card[style*="FFD449"] .doc-note {
-    border-top-color: rgba(0, 0, 0, 0.15);
-    opacity: 0.7;
-  }
-  .doc-card[style*="FFD449"] .doc-popup-btn {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-  }
 
   /* 더 큰 화면에서는 폰트 살짝 키움 */
   @media (min-width: 1024px) {
@@ -1276,7 +1267,6 @@
         </div>
         <div class="leading-tight">
           <div class="font-display text-[var(--primary)] text-[15px] md:text-base">든든한주거복지기금</div>
-          <div class="text-[11px] md:text-xs text-[var(--ink-3)] font-semibold">대출지원사업</div>
         </div>
       </div>
     </a>
@@ -1314,7 +1304,6 @@
             </div>
             <div class="leading-tight">
               <div class="font-display text-[var(--primary)] text-sm">든든한주거복지기금</div>
-              <div class="text-[10px] text-[var(--ink-3)] font-semibold">대출지원사업</div>
             </div>
           </div>
         </div>
@@ -1404,9 +1393,9 @@
 
     <!-- 서브 카피 -->
     <p class="mt-7 text-[var(--ink-2)] text-[15px] md:text-[17px] leading-relaxed rise delay-200" data-editable contenteditable="false">
-      안정적인 주거가 필요한 주거취약계층의<br class="hidden md:block"/>
-      전세·월세 보증금 마련을 돕는<br/>
-      <span class="text-[var(--primary)] font-bold">든든한주거복지기금 대출지원사업</span>입니다.
+      <span class="text-[var(--secondary)] font-bold">든든한주거복지기금</span>은 안정적인 주거가 필요한<br class="hidden md:block"/>
+      <span class="text-[var(--ink)] font-bold">주거취약계층</span>의 전세·월세 보증금 마련을 돕는<br/>
+      <span class="text-[var(--primary)] font-bold">주거취약계층 주거복지기금 대출지원사업</span>입니다.
     </p>
 
     <!-- 3개 정보 칩 (가운데 정렬) -->
@@ -2193,7 +2182,7 @@
       <h2 class="font-pretendard-bold text-3xl md:text-5xl mt-6" data-editable contenteditable="false">신청에 필요한 서류를 미리 준비하세요</h2>
     </div>
 
-    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
       <!-- 01 신청서류 -->
       <div class="doc-card text-white" style="background: linear-gradient(160deg, #1a1aa8, #000096);">
         <div class="doc-card-head">
@@ -2263,19 +2252,6 @@
           <li><button type="button" class="doc-popup-btn" data-doc-popup="income-type" data-type="etc">기타소득</button></li>
         </ul>
         <p class="doc-note">단어를 클릭하면 해당 서류를 확인할 수 있습니다.</p>
-      </div>
-
-      <!-- 04 해당자 추가서류 -->
-      <div class="doc-card text-[var(--ink)]" style="background: linear-gradient(160deg, #FFF1A8, #FFD449);">
-        <div class="doc-card-head">
-          <span class="doc-num text-[#B07A00]">04</span>
-          <h3 class="doc-title" data-editable contenteditable="false">해당자 추가서류</h3>
-        </div>
-        <ul class="doc-list">
-          <li><span class="doc-icon">📎</span><span data-editable contenteditable="false">재계약·보증금 증액 확인서류</span></li>
-          <li><span class="doc-icon">📎</span><span data-editable contenteditable="false">공적지원 수급 증빙서류</span></li>
-          <li><span class="doc-icon">📎</span><span data-editable contenteditable="false">한부모가족증명서 등</span></li>
-        </ul>
       </div>
     </div>
 
@@ -2647,7 +2623,7 @@
         <!-- JS로 동적 로드 -->
       </div>
       <p class="text-[11px] text-[var(--ink-3)] mt-4 leading-relaxed">
-        ※ 본인에게 해당하는 모든 소득에 대해 증빙서류를 제출해주세요. 최종 자격은 제출서류 검토 후 결정됩니다.
+        ※ 위의 서류 중 택일<br/>※ 직전 3개월 소득 확인 가능해야 함.
       </p>
     </div>
     <div class="modal-footer">
@@ -2719,7 +2695,7 @@
       const contentEl = document.getElementById('incomeTypeContent');
       if (titleEl) titleEl.textContent = data.title;
       if (contentEl) {
-        const itemsHtml = data.items.map(i => `<li class="flex items-start gap-2 py-1.5"><span class="text-[var(--secondary)] mt-1">●</span><span class="text-[14px] text-[var(--ink-2)]">${i}</span></li>`).join('');
+        const itemsHtml = data.items.map(i => `<li class="flex items-center gap-2 py-1.5"><span class="text-[var(--secondary)] leading-none flex-shrink-0">●</span><span class="text-[14px] text-[var(--ink-2)]">${i}</span></li>`).join('');
         contentEl.innerHTML = `
           <p class="text-[13px] text-[var(--ink-2)] mb-4">${data.note}</p>
           <div class="rounded-2xl p-4" style="background: var(--bg);">
