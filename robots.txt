@@ -1,7 +1,11 @@
-# 든든한 주거복지기금 대출지원사업
-# https://ium-strategy.github.io/
+# robots.txt for 든든한주거복지기금
+# https://safehome.warmfund.net/
 
 User-agent: *
 Allow: /
 
-Sitemap: https://ium-strategy.github.io/sitemap.xml
+# 검색 노출이 필요 없는 경로가 있으면 아래에 추가
+# Disallow: /admin/
+
+# Sitemap 위치 안내
+Sitemap: https://safehome.warmfund.net/sitemap.xml
